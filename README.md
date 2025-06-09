@@ -4,7 +4,7 @@ This project implements a monitoring agent that periodically sends status update
 
 ## Related Repositories
 
-- **Pyring Server**: [https://github.com/your-username/pyring-server](https://github.com/your-username/pyring-server) - The server component that receives and processes monitoring data from agents
+- **Pyring Server**: [https://github.com/your-username/pyring-server](https://github.com/Viirz/pyring-server) - The server component that receives and processes monitoring data from agents
 
 ## Project Structure
 
