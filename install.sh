@@ -25,6 +25,9 @@ sudo chown -R monitoring:monitoring /etc/monitoring >/dev/null 2>&1
 echo "(+) Configuring environment file..."
 # Insert env file with template
 echo "UUID=\"TEMPLATE_UUID\"" | sudo tee -a /etc/monitoring/.env >/dev/null
+echo "SERVER_URL=\"http://localhost:5000\"" | sudo tee -a /etc/monitoring/.env >/dev/null
+echo "STATUS_INTERVAL=\"15\"" | sudo tee -a /etc/monitoring/.env >/dev/null
+echo "COMMAND_INTERVAL=\"10\"" | sudo tee -a /etc/monitoring/.env >/dev/null
 
 echo "(+) Setting up sudo permissions..."
 # add access to monitoring group
@@ -85,6 +88,6 @@ echo "(✓) Python virtual environment created at: /etc/monitoring/venv"
 echo "(!) Please configure the env file located in /etc/monitoring/.env and start the service."
 echo ""
 echo "Next steps:"
-echo "  1. Edit /etc/monitoring/.env with your UUID"
+echo "  1. Edit /etc/monitoring/.env with your UUID and SERVER_URL"
 echo "  2. Start the service: sudo systemctl start monitoring.service"
 echo "  3. Check status: sudo systemctl status monitoring.service"

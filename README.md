@@ -53,24 +53,7 @@ The service uses a dedicated Python virtual environment located at `/etc/monitor
 
 1. Clone the repository or download the project files.
 2. Navigate to the project directory.
-3. Configure the Pyring Server URL in `client/config.py`:
-
-   ```python
-   # Edit client/config.py and change the server_url to your Pyring Server address:
-   server_url: str = "http://your-pyring-server:5000"
-   ```
-
-4. Set up GPG keys from the Pyring Server admin dashboard:
-
-   ```bash
-   # Copy the agent private key from Pyring Server admin dashboard to:
-   # /path/to/client/agent-private-key.asc
-   
-   # Copy the server public key from Pyring Server admin dashboard to:
-   # /path/to/client/server-public-key.asc
-   ```
-
-5. Run the installation script to install the Pyring Agent:
+3. Run the installation script to install the Pyring Agent:
 
    ```bash
    chmod +x install.sh
@@ -84,19 +67,38 @@ The service uses a dedicated Python virtual environment located at `/etc/monitor
    - Install all required Python packages in the virtual environment
    - Configure systemd service with proper permissions
 
-6. Configure the environment variables in `/etc/monitoring/.env`:
+4. Set up GPG keys from the Pyring Server admin dashboard:
+
+   ```bash
+   # Copy the agent private key from Pyring Server admin dashboard to:
+   # /path/to/client/agent-private-key.asc
+   
+   # Copy the server public key from Pyring Server admin dashboard to:
+   # /path/to/client/server-public-key.asc
+   ```
+
+5. Configure the environment variables in `/etc/monitoring/.env`:
 
    ```env
    UUID="your-uuid-here"
+   SERVER_URL="http://your-pyring-server:5000"
+   STATUS_INTERVAL="15"
+   COMMAND_INTERVAL="10"
    ```
 
-7. Start the service:
+   **Configuration Options:**
+   - `UUID`: Your unique agent identifier from the Pyring Server
+   - `SERVER_URL`: Change from the default `http://localhost:5000` to your actual Pyring Server address
+   - `STATUS_INTERVAL`: How often (in seconds) to send status updates to the server (default: 15)
+   - `COMMAND_INTERVAL`: How often (in seconds) to check for commands from the server (default: 10)
+
+6. Start the service:
 
    ```bash
    sudo systemctl start monitoring.service
    ```
 
-8. Check the service status:
+7. Check the service status:
 
    ```bash
    sudo systemctl status monitoring.service
