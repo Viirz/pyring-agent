@@ -1,0 +1,17 @@
+[Unit]
+Description=Monitoring Service
+After=network.target
+
+[Service]
+Type=simple
+User=monitoring
+Group=monitoring
+ExecStart=/etc/monitoring/venv/bin/python /opt/monitoring/client/config.py
+Restart=on-failure
+StandardOutput=journal
+StandardError=journal
+Environment=PATH=/etc/monitoring/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=VIRTUAL_ENV=/etc/monitoring/venv
+
+[Install]
+WantedBy=multi-user.target

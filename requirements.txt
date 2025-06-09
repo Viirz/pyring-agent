@@ -1,0 +1,4 @@
+python-dotenv
+apscheduler
+python-gnupg
+requests
