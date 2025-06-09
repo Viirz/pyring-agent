@@ -254,6 +254,7 @@ class Monitoring:
                             raise requests.exceptions.RequestException
                         print(f"Data sent successfully after recovery: {data}", flush=True)
                         self.status = 1
+                        self.retries = 5
                 except requests.exceptions.RequestException as e:
                     error_msg = f"Failed to send data after recovery: {e}"
                     if hasattr(e, 'response') and e.response is not None:
