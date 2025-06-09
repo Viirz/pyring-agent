@@ -53,7 +53,14 @@ The service uses a dedicated Python virtual environment located at `/etc/monitor
 
 1. Clone the repository or download the project files.
 2. Navigate to the project directory.
-3. Set up GPG keys from the Pyring Server admin dashboard:
+3. Configure the Pyring Server URL in `client/config.py`:
+
+   ```python
+   # Edit client/config.py and change the server_url to your Pyring Server address:
+   server_url: str = "http://your-pyring-server:5000"
+   ```
+
+4. Set up GPG keys from the Pyring Server admin dashboard:
 
    ```bash
    # Copy the agent private key from Pyring Server admin dashboard to:
@@ -63,7 +70,7 @@ The service uses a dedicated Python virtual environment located at `/etc/monitor
    # /path/to/client/server-public-key.asc
    ```
 
-4. Run the installation script to install the Pyring Agent:
+5. Run the installation script to install the Pyring Agent:
 
    ```bash
    chmod +x install.sh
@@ -77,19 +84,19 @@ The service uses a dedicated Python virtual environment located at `/etc/monitor
    - Install all required Python packages in the virtual environment
    - Configure systemd service with proper permissions
 
-5. Configure the environment variables in `/etc/monitoring/.env`:
+6. Configure the environment variables in `/etc/monitoring/.env`:
 
    ```env
    UUID="your-uuid-here"
    ```
 
-6. Start the service:
+7. Start the service:
 
    ```bash
    sudo systemctl start monitoring.service
    ```
 
-7. Check the service status:
+8. Check the service status:
 
    ```bash
    sudo systemctl status monitoring.service
