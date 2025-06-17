@@ -4,7 +4,7 @@ This project implements a monitoring agent that periodically sends status update
 
 ## Related Repositories
 
-- **Pyring Server**: [https://github.com/your-username/pyring-server](https://github.com/your-username/pyring-server) - The server component that receives and processes monitoring data from agents
+- **Pyring Server**: [https://github.com/your-username/pyring-server](https://github.com/Viirz/pyring-server) - The server component that receives and processes monitoring data from agents
 
 ## Project Structure
 
@@ -53,7 +53,17 @@ The service uses a dedicated Python virtual environment located at `/etc/monitor
 
 1. Clone the repository or download the project files.
 2. Navigate to the project directory.
-3. Run the installation script to install the Pyring Agent:
+3. Set up GPG keys from the Pyring Server admin dashboard:
+
+   ```bash
+   # Copy the agent private key from Pyring Server admin dashboard to:
+   # /path/to/client/agent-private-key.asc
+   
+   # Copy the server public key from Pyring Server admin dashboard to:
+   # /path/to/client/server-public-key.asc
+   ```
+   
+4. Run the installation script to install the Pyring Agent:
 
    ```bash
    chmod +x install.sh
@@ -66,16 +76,6 @@ The service uses a dedicated Python virtual environment located at `/etc/monitor
    - Create a Python virtual environment at `/etc/monitoring/venv`
    - Install all required Python packages in the virtual environment
    - Configure systemd service with proper permissions
-
-4. Set up GPG keys from the Pyring Server admin dashboard:
-
-   ```bash
-   # Copy the agent private key from Pyring Server admin dashboard to:
-   # /path/to/client/agent-private-key.asc
-   
-   # Copy the server public key from Pyring Server admin dashboard to:
-   # /path/to/client/server-public-key.asc
-   ```
 
 5. Configure the environment variables in `/etc/monitoring/.env`:
 
