@@ -7,11 +7,12 @@ import json
 import os
 
 class Monitoring:
-    def __init__(self, uuid, server_url):
+    def __init__(self, uuid, server_url, ssl_verify):
         self.uuid = uuid
         self.server_url = server_url
         self.status = 1
         self.retries = 5
+        self.ssl_verify = ssl_verify
         self.lock = threading.Lock()
         
         # Initialize GPG with custom directory and options
@@ -206,7 +207,7 @@ class Monitoring:
 
             while self.retries > 0:
                 try:
-                    response = requests.post(url, data=encrypted_data, headers=headers)
+                    response = requests.post(url, data=encrypted_data, headers=headers, verify=self.ssl_verify)
                     response.raise_for_status()
                     
                     # Decrypt and verify response if needed
@@ -248,7 +249,7 @@ class Monitoring:
                     
                     encrypted_recovery_data = self._encrypt_and_sign_data(data)
                     if encrypted_recovery_data:
-                        response = requests.post(url, data=encrypted_recovery_data, headers=headers)
+                        response = requests.post(url, data=encrypted_recovery_data, headers=headers, verify=self.ssl_verify)
                         if response.status_code != 200:
                             time.sleep(1)
                             raise requests.exceptions.RequestException
@@ -277,7 +278,7 @@ class Monitoring:
             encrypted_logs = self._encrypt_and_sign_data(logs_data)
             if encrypted_logs:
                 try:
-                    response = requests.post(logs_url, data=encrypted_logs, headers=headers)
+                    response = requests.post(logs_url, data=encrypted_logs, headers=headers, verify=self.ssl_verify)
                     response.raise_for_status()
                     print(f"Logs sent successfully", flush=True)
                 except requests.exceptions.RequestException as e:
@@ -309,7 +310,7 @@ class Monitoring:
 
         try:
             # Send the initial POST request
-            response = requests.post(url, data=encrypted_data, headers=headers)
+            response = requests.post(url, data=encrypted_data, headers=headers, verify=self.ssl_verify)
             if response.status_code == 404:
                 print("No command to execute", flush=True)
                 return
@@ -360,7 +361,7 @@ class Monitoring:
             encrypted_result = self._encrypt_and_sign_data(result_data)
             if encrypted_result:
                 try:
-                    result_response = requests.post(url, data=encrypted_result, headers=headers)
+                    result_response = requests.post(url, data=encrypted_result, headers=headers, verify=self.ssl_verify)
                     result_response.raise_for_status()
                     print(f"Command result sent successfully for command_id: {command_id}", flush=True)
                 except requests.exceptions.RequestException as e:

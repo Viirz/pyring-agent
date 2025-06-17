@@ -6,10 +6,11 @@ from apscheduler.schedulers.background import BlockingScheduler
 def main():
     load_dotenv('/etc/monitoring/.env')
     uuid: str = os.getenv("UUID")
-    server_url: str = os.getenv("SERVER_URL", "http://localhost:5000")
+    server_url: str = os.getenv("SERVER_URL", "https://localhost:5000")
+    ssl_verify: bool = os.getenv("SSL_VERIFY", "false").lower() == "true"
     status_interval: int = int(os.getenv("STATUS_INTERVAL", "15"))
     command_interval: int = int(os.getenv("COMMAND_INTERVAL", "10"))
-    monitoring = Monitoring(uuid, server_url)
+    monitoring = Monitoring(uuid, server_url, ssl_verify)
     
     scheduler = BlockingScheduler()
     scheduler.add_job(monitoring.send_status, 'interval', seconds=status_interval)

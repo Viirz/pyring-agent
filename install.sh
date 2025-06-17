@@ -25,7 +25,8 @@ sudo chown -R monitoring:monitoring /etc/monitoring >/dev/null 2>&1
 echo "(+) Configuring environment file..."
 # Insert env file with template
 echo "UUID=\"TEMPLATE_UUID\"" | sudo tee -a /etc/monitoring/.env >/dev/null
-echo "SERVER_URL=\"http://localhost:5000\"" | sudo tee -a /etc/monitoring/.env >/dev/null
+echo "SERVER_URL=\"https://localhost:5000\"" | sudo tee -a /etc/monitoring/.env >/dev/null
+echo "SSL_VERIFY=\"false\"" | sudo tee -a /etc/monitoring/.env >/dev/null
 echo "STATUS_INTERVAL=\"15\"" | sudo tee -a /etc/monitoring/.env >/dev/null
 echo "COMMAND_INTERVAL=\"10\"" | sudo tee -a /etc/monitoring/.env >/dev/null
 
