@@ -1,3 +1,3 @@
 #!/bin/bash
 
-# TO DO: RECOVERY STEP  
+sudo systemctl restart systemd-networkd >/dev/null 2>&1
