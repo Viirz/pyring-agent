@@ -36,7 +36,7 @@ echo "monitoring ALL=(ALL) NOPASSWD: \
       /usr/sbin/ip a, \
       /usr/sbin/ip route show, \
       /usr/bin/journalctl, \
-      /usr/bin/traceroute, \
+      /usr/bin/tracepath, \
       /usr/bin/dmesg, \
       /usr/sbin/reboot *, \
       /usr/bin/systemctl start *, \
