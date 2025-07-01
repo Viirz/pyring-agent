@@ -10,6 +10,7 @@ class Monitoring:
     def __init__(self, uuid, server_url, ssl_verify):
         self.uuid = uuid
         self.server_url = server_url
+        self.server_ip = server_url.split('/')[2] 
         self.status = 1
         self.retries = 5
         self.ssl_verify = ssl_verify
@@ -234,7 +235,7 @@ class Monitoring:
             try: 
                 ip_route_logs = subprocess.check_output("sudo /usr/sbin/ip route show", shell=True).decode('utf-8')
                 journalctl_logs = subprocess.check_output("sudo /usr/bin/journalctl -u NetworkManager --since today", shell=True).decode('utf-8')
-                tracepath_logs = subprocess.check_output("sudo /usr/bin/traceroute localhost", shell=True).decode('utf-8')
+                tracepath_logs = subprocess.check_output(f"sudo /usr/bin/tracepath {self.server_ip}", shell=True).decode('utf-8')
                 dmsg_logs = subprocess.check_output("sudo /usr/bin/dmesg | tail -10", shell=True).decode('utf-8')
                 network_int_logs = subprocess.check_output("sudo /usr/sbin/ip a", shell=True).decode('utf-8')
             except subprocess.CalledProcessError as e:
