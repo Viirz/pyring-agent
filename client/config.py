@@ -13,8 +13,8 @@ def main():
     monitoring = Monitoring(uuid, server_url, ssl_verify)
     
     scheduler = BlockingScheduler()
-    scheduler.add_job(monitoring.send_status, 'interval', seconds=status_interval)
-    scheduler.add_job(monitoring.get_and_run_command, 'interval', seconds=command_interval)
+    scheduler.add_job(monitoring.send_status, 'interval', seconds=status_interval, max_instances=1)
+    scheduler.add_job(monitoring.get_and_run_command, 'interval', seconds=command_interval, max_instances=1)
     scheduler.start()
     print("Scheduler started, monitoring in progress...", flush=True)
     print(scheduler.print_jobs(), flush=True)
